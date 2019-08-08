@@ -1,4 +1,4 @@
-package com.example.c0753560_mad3125_midterm.Activities;
+package com.example.c0753560_mad3125_midterm.JavaClass;
 
 public class Rocket
 {
