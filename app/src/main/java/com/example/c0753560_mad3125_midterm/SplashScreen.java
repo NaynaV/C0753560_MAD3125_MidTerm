@@ -1,12 +1,10 @@
-package com.example.c0753560_mad3125_midterm.Activities;
+package com.example.c0753560_mad3125_midterm;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.c0753560_mad3125_midterm.R;
 
 public class SplashScreen extends AppCompatActivity
 {
@@ -23,7 +21,7 @@ public class SplashScreen extends AppCompatActivity
             public void run() {
                 try {
                     sleep(3000);
-                    Intent intent = new Intent(getApplicationContext(), LoginClass.class);
+                    Intent intent = new Intent(getApplicationContext(), FlightListAdaptor.class);
                     startActivity(intent);
                     finish();
                 }
