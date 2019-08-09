@@ -6,19 +6,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.widget.LinearLayout;
+import android.util.Log;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 
-import com.android.volley.Request;
-
 import com.android.volley.RequestQueue;
 
-import com.android.volley.Response;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.c0753560_mad3125_midterm.JavaClass.FlightMain;
+import com.example.c0753560_mad3125_midterm.JavaClass.Launch_Site;
+import com.example.c0753560_mad3125_midterm.JavaClass.Links;
+import com.example.c0753560_mad3125_midterm.JavaClass.Rocket;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,8 +25,6 @@ import org.json.JSONObject;
 
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -57,10 +54,11 @@ public class MainActivity extends AppCompatActivity {
         FlightListRecycleView.setLayoutManager(new LinearLayoutManager(this));
 
         mRequestQueue = Volley.newRequestQueue(this);
-        parseJSON();
+        processJSON();
+        Log.d("Size of List : ",String.valueOf(mflightList.size()));
     }
 
-    public void parseJSON()
+   /* public void parseJSON()
     {
         String url = "https://pixabay.com/api/?key=5303976-fd6581ad4ac165d1b75cc15b3&q=kitten&image_type=photo&pretty=true";
 
@@ -96,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mRequestQueue.add(request);
-    }
+    }*/
 
     public String loadJSONFromAsset() {
         String json;
@@ -139,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public FlightListAdaptor getFlightObjectFromJSON(JSONObject userJsonObject) throws JSONException
+    public FlightMain getFlightObjectFromJSON(JSONObject userJsonObject) throws JSONException
     {
         String flight_number = userJsonObject.getString("flight_number");
         String mission_name = userJsonObject.getString("mission_name");
@@ -169,35 +167,35 @@ public class MainActivity extends AppCompatActivity {
         String video_link = links.getString("video_link");
 
         //start creating User object
-        SpaceXFlight mSpaceXFlight = new SpaceXFlight();
-        mSpaceXFlight.setFlight_number(flight_number);
-        mSpaceXFlight.setMission_name(mission_name);
-        mSpaceXFlight.setUpcoming(upcoming);
-        mSpaceXFlight.setLaunch_year(launch_year);
-        mSpaceXFlight.setLaunch_window(launch_window);
-        mSpaceXFlight.setDetails(details);
+        FlightMain mFlightMain = new FlightMain();
+        mFlightMain.setFilghtNumber(flight_number);
+        mFlightMain.setMissionName(mission_name);
+        mFlightMain.setUpcoming(upcoming);
+        mFlightMain.setLaunchYear(launch_year);
+        mFlightMain.setLaunchWindow(launch_window);
+        mFlightMain.setDetails(details);
 
         Rocket mRocket = new Rocket();
-        mRocket.setRocket_id(rocket_id);
-        mRocket.setRocket_name(rocket_name);
-        mRocket.setRocket_type(rocket_type);
-        mSpaceXFlight.setRocket(mRocket);
+        mRocket.setRocketId(rocket_id);
+        mRocket.setRocketName(rocket_name);
+        mRocket.setRocketType(rocket_type);
+        mFlightMain.setRocket(mRocket);
 
-        LaunchSite mLaunchSite = new LaunchSite();
-        mLaunchSite.setSite_id(site_id);
-        mLaunchSite.setSite_name(site_name);
-        mLaunchSite.setSite_name_long(site_name_long);
-        mSpaceXFlight.setLaunchSite(mLaunchSite);
+        Launch_Site mLaunchSite = new Launch_Site();
+        mLaunchSite.setSiteID(site_id);
+        mLaunchSite.setSiteName(site_name);
+        mLaunchSite.setSiteNameLong(site_name_long);
+        mFlightMain.setLaunchSite(mLaunchSite);
 
         Links mLinks = new Links();
-        mLinks.setMission_patch(mission_patch);
-        mLinks.setMission_patch_small(mission_patch_small);
-        mLinks.setArticle_link(article_link);
-        mLinks.setWikipedia(wikipedia);
-        mLinks.setVideo_link(video_link);
-        mSpaceXFlight.setLinks(mLinks);
 
-        return mSpaceXFlight;
+        mLinks.setMissionPatchSmall(mission_patch_small);
+        mLinks.setArticleLink(article_link);
+        mLinks.setWikipedia(wikipedia);
+        mLinks.setVideoLink(video_link);
+        mFlightMain.setLinks(mLinks);
+
+        return mFlightMain;
     }
 
 
